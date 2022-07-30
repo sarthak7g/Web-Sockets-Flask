@@ -1,7 +1,10 @@
+import json
 from flask import Flask, request
 from flask_socketio import SocketIO, emit, send
 import time
+import atexit
 from Users import Users
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secretkey'
@@ -35,6 +38,17 @@ def handle_time_event():
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
+
+@app.route('/status')
+def sendStatus():
+    socketio.emit('status', 'connected')
+    return json.dumps('Done')
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=sendStatus, trigger="interval", seconds=60)
+scheduler.start()
+
+atexit.register(lambda: scheduler.shutdown())
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)

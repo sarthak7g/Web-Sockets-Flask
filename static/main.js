@@ -23,11 +23,13 @@ socket.on('get-age', (data) => {
     document.getElementById('area3').innerHTML = data;
 })
 
-socket.on('push-connect', (data) => {
-    var val = document.getElementById('area1').innerHTML;
-    document.getElementById('area1').innerHTML = val + data;
-})
 
-socket.on('get-time', (data) => {
-    document.getElementById('area1').innerHTML = data;
+socket.on('status', (data) => {
+    const para = document.createElement("p");
+    const node = document.createTextNode(data);
+    para.appendChild(node);
+
+    const element = document.getElementById('status');
+    element.appendChild(para);
+
 })
