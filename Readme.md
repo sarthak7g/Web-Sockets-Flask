@@ -6,3 +6,9 @@ This is a demo app through which multiple clients can connect to server via web 
 - Client can request server current timestamp
 - Client can request server the number of clients connected
 - Client can request the age. Age is the time since it is connected to the server.
+
+## Local Setup(Python 3.8)
+- RUN 'virtualenv venv'
+- RUN 'source venv/bin/activate'
+- RUN 'pip install -r requirments.txt'
+- RUN 'python3 main.py'
